@@ -3,15 +3,13 @@ class Phrase
     @phrase = phrase
   end
 
+  def words
+    @phrase.downcase.split(/[^a-zA-Z0-9(')('')]+/)
+  end
+
   def word_count
-    phrase_hsh = {}
-    phrase_arr = @phrase.downcase
-                        .split(/[^a-zA-Z0-9(')('')]+/)
-
-    phrase_arr.uniq.each do |word|
-      phrase_hsh.merge!({ word => phrase_arr.count(word)})
+    words.uniq.each_with_object(Hash.new) do |word, hash|
+      hash[word] = words.count(word)
     end
-
-    phrase_hsh
   end
 end
